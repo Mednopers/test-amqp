@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+  php-cli:
+    image: php:8-alpine
+    tty: true
+    volumes:
+      - ${PWD}/app:/app
+    working_dir: /app
+    depends_on:
+      - rabbitmq
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      - MYSQL_DATABASE=${DATABASE_NAME}
+      - MYSQL_ROOT_PASSWORD=${DATABASE_ROOT_PASSWORD}
+      - MYSQL_USER=${DATABASE_USER}
+      - MYSQL_PASSWORD=${DATABASE_PASSWORD}
+    volumes:
+      - ${PWD}/database/docker/data/mysql:/var/lib/mysql
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    environment:
+      - RABBITMQ_ERLANG_COOKIE=${RABBITMQ_ERLANG_COOKIE}
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+    volumes:
+      - ${PWD}/rabbitmq/docker/enabled_plugins:/etc/rabbitmq/enabled_plugins

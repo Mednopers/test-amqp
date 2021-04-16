@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  php-cli:
+    ports:
+        - 8080:80
+
+  mysql:
+    ports:
+      - 3306:3306
+
+  rabbitmq:
+    ports:
+      - 8081:15672
+      - 5672:5672

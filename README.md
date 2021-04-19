@@ -27,18 +27,28 @@ $ make db-migrate
 Usage
 -----
 
-There is no need to configure a virtual host in your web server just use:
+There is no need to configure a virtual host in your web server.
 
+To run containers use: 
 ```bash
 $ make up
 ```
-
-It will start a built-in web server for the application at <http://localhost:8080>.
 
 To stop containers use:
 
 ```bash
 $ make down
+```
+
+To run development server use:
+```bash
+$ make server-run
+```
+The built-in web server will be available at <http://localhost:8080>.
+
+To consume for messages use:
+```bash
+$ make consume
 ```
 
 To get more info use:

@@ -13,7 +13,6 @@ help : Makefile
 ## up			: Mount the dev containers and run dev server
 up:
 	docker-compose up -d
-	docker-compose exec php-cli php -S 0.0.0.0:80 -t public
 
 ## down			: Stops, remove the containers
 down:
@@ -22,7 +21,7 @@ down:
 ##
 ## Tools
 ##---------------------------------------------------------------------------
-.PHONY: init sh db-migrate
+.PHONY: init db-migrate server-run sh consume
 
 ## init			: Init environment, install dependencies
 init:
@@ -37,10 +36,18 @@ init:
 	cp docker-compose.override.yml.dist docker-compose.override.yml
 	./app/composer install
 
+## db-migrate		: Run db migrations
+db-migrate:
+	docker-compose exec php-cli bin/console doctrine:migrations:migrate --no-interaction
+
+## server-run		: Run dev server
+server-run:
+	docker-compose exec php-cli php -S 0.0.0.0:80 -t public
+
 ## sh			: Access the php container via shell
 sh:
 	docker-compose exec php-cli sh
 
-## db-migrate			: Run db migrations
-db-migrate:
-	docker-compose exec php-cli bin/console doctrine:migrations:migrate --no-interaction
+## consume		: Consume to messages
+consume:
+	docker-compose exec php-cli bin/console messenger:consume

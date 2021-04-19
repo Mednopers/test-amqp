@@ -14,6 +14,16 @@ $ make init
 
 It'll install dependencies
 
+Run containers with:
+```bash
+$ make up
+```
+
+Add database migrations:
+```bash
+$ make db-migrate
+```
+
 Usage
 -----
 

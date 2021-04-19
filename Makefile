@@ -22,7 +22,7 @@ down:
 ##
 ## Tools
 ##---------------------------------------------------------------------------
-.PHONY: init sh
+.PHONY: init sh db-migrate
 
 ## init			: Init environment, install dependencies
 init:
@@ -40,3 +40,7 @@ init:
 ## sh			: Access the php container via shell
 sh:
 	docker-compose exec php-cli sh
+
+## db-migrate			: Run db migrations
+db-migrate:
+	docker-compose exec php-cli bin/console doctrine:migrations:migrate --no-interaction

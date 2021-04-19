@@ -3,5 +3,6 @@
 docker run --rm --interactive --tty \
     -u $(id -u ${USER}):$(id -g ${USER}) \
     --volume $PWD/app:/app \
+    --env-file $PWD/app/.env \
     -w /app \
     composer:2 composer "$@"

@@ -1,11 +1,22 @@
 version: "3.8"
 services:
   php-cli:
-    image: php:8-alpine
+    build:
+      context: ${PWD}/php
     tty: true
     volumes:
       - ${PWD}/app:/app
     working_dir: /app
+    environment:
+      - AMQP_USER=${RABBITMQ_DEFAULT_USER}
+      - AMQP_PASS=${RABBITMQ_DEFAULT_PASS}
+      - AMQP_HOST=rabbitmq
+      - AMQP_PORT=5672
+      - DB_NAME=${DATABASE_NAME}
+      - DB_USER=${DATABASE_USER}
+      - DB_PASS=${DATABASE_PASSWORD}
+      - DB_HOST=mysql
+      - DB_PORT=3306
     depends_on:
       - rabbitmq
 
